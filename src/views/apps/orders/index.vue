@@ -15,7 +15,7 @@
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
               <div class="app-search w-100">
                 <div class="position-relative">
-                  <input type="text" class="form-control" :placeholder="t('common.search') + '...'">
+                  <b-form-input :placeholder="t('common.search') + '...'" />
                   <span class="bx bx-search-alt"></span>
                 </div>
               </div>
@@ -23,10 +23,10 @@
 
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
               <div class="d-flex gap-2 button-container" v-if="selectedOrders.length > 0">
-                <button class="btn btn-light">
+                <button class="btn btn-light action-btn print-btn">
                   <i class="bx bx-printer me-1"></i> {{ t('common.print') }}
                 </button>
-                <button class="btn btn-white archive-btn">
+                <button class="btn btn-light action-btn archive-btn">
                   <i class="bx bx-archive me-1"></i> {{ t('common.archive') }}
                 </button>
               </div>
@@ -391,14 +391,12 @@ const getTranslationKeyForNote = (note: string) => {
   width: 280px;
 }
 
-.app-search .form-control {
+.app-search :deep(.form-control) {
   border-radius: 0.25rem;
   height: 38px;
   padding-left: 40px;
   padding-right: 20px;
-  background-color: #fff;
   box-shadow: none;
-  border: 1px solid #e9ecef;
 }
 
 .app-search span {
@@ -548,20 +546,49 @@ h5.fw-semibold {
   color: var(--bs-primary);
 }
 
-/* Archive button styling */
+/* Action buttons styling */
+.action-btn {
+  border-color: var(--bs-border-color);
+}
+
+.print-btn {
+  color: var(--bs-body-color);
+}
+
+.print-btn i {
+  color: var(--bs-body-color);
+}
+
 .archive-btn {
-  background-color: #FFFFFF;
-  border-color: #e9ecef;
-  color: #3176FB;
+  color: var(--bs-primary);
 }
 
 .archive-btn i {
-  color: #3176FB;
+  color: var(--bs-primary);
 }
 
-.archive-btn:hover {
-  background-color: #f8f9fa;
-  color: #3176FB;
+.action-btn:hover {
+  background-color: var(--bs-light);
+}
+
+/* Dark mode specific styles for buttons and search input */
+:deep([data-bs-theme="dark"]) .btn-light {
+  --bs-btn-active-color: var(--bs-dark);
+  --bs-btn-active-bg: var(--bs-border-color);
+  --bs-btn-active-border-color: var(--bs-border-color);
+  background-color: var(--bs-tertiary-bg) !important;
+  border-color: var(--bs-border-color) !important;
+  color: var(--bs-body-color) !important;
+}
+
+:deep([data-bs-theme="dark"]) .app-search .form-control {
+  background-color: var(--bs-tertiary-bg) !important;
+  border-color: var(--bs-border-color) !important;
+  color: var(--bs-body-color) !important;
+}
+
+:deep([data-bs-theme="dark"]) .app-search span {
+  color: var(--bs-secondary-color) !important;
 }
 
 /* Clickable row styling */
