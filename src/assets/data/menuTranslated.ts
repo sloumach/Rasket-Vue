@@ -3,13 +3,13 @@ import { useTranslation } from '@/locales/i18n';
 
 export function getMenuItems(): MenuItemType[] {
   const { t } = useTranslation();
-  
+
   return [
     {
       key: 'dashboard',
       label: t('common.dashboard'),
       icon: 'solar:home-2-broken',
-      route: { name: 'dashboards.index' },
+      url: '#',
     },
     {
       key: 'sales',
@@ -25,7 +25,7 @@ export function getMenuItems(): MenuItemType[] {
         {
           key: 'sales-reservations',
           label: t('common.reservations'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'sales',
         },
       ],
@@ -38,25 +38,25 @@ export function getMenuItems(): MenuItemType[] {
         {
           key: 'catalog-products',
           label: t('common.products'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'catalog',
         },
         {
           key: 'catalog-categories',
           label: t('common.categories'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'catalog',
         },
         {
           key: 'catalog-inventory',
           label: t('common.inventory'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'catalog',
         },
         {
           key: 'catalog-options',
           label: t('common.options'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'catalog',
         },
       ],
@@ -69,19 +69,19 @@ export function getMenuItems(): MenuItemType[] {
         {
           key: 'finances-payments',
           label: t('common.payments'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'finances',
         },
         {
           key: 'finances-payment-link',
           label: t('common.paymentLink'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'finances',
         },
         {
           key: 'finances-invoice',
           label: t('common.invoice'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'finances',
         },
       ],
@@ -94,13 +94,13 @@ export function getMenuItems(): MenuItemType[] {
         {
           key: 'contact-customers',
           label: t('common.customers'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'contact',
         },
         {
           key: 'contact-reviews',
           label: t('common.reviews'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'contact',
         },
       ],
@@ -113,31 +113,31 @@ export function getMenuItems(): MenuItemType[] {
         {
           key: 'marketing-overview',
           label: t('common.overview'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'marketing',
         },
         {
           key: 'marketing-coupon',
           label: t('common.coupon'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'marketing',
         },
         {
           key: 'marketing-promotion',
           label: t('common.promotion'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'marketing',
         },
         {
           key: 'marketing-popup',
           label: t('common.popup'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'marketing',
         },
         {
           key: 'marketing-whatsapp',
           label: t('common.whatsapp'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'marketing',
         },
       ],
@@ -150,31 +150,31 @@ export function getMenuItems(): MenuItemType[] {
         {
           key: 'reports-overview',
           label: t('common.overview'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'reports',
         },
         {
           key: 'reports-sales',
           label: t('common.sales'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'reports',
         },
         {
           key: 'reports-top-selling',
           label: t('common.topSelling'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'reports',
         },
         {
           key: 'reports-customers',
           label: t('common.customers'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'reports',
         },
         {
           key: 'reports-marketing',
           label: t('common.marketing'),
-          route: { name: 'dashboards.index' },
+          url: '#',
           parentKey: 'reports',
         },
       ],
@@ -183,13 +183,13 @@ export function getMenuItems(): MenuItemType[] {
       key: 'settings',
       label: t('common.settings'),
       icon: 'solar:settings-broken',
-      route: { name: 'dashboards.index' },
+      url: '#',
     },
     {
       key: 'preview-store',
       label: t('common.previewStore'),
       icon: 'solar:shop-broken',
-      route: { name: 'dashboards.index' },
+      url: '#',
     },
   ];
 }

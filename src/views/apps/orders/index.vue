@@ -1,15 +1,8 @@
 <template>
   <VerticalLayout>
-    <!-- Order Status Cards - First Row -->
+    <!-- Order Status Cards -->
     <b-row class="g-2">
-      <b-col md="6" xl="3" v-for="(item, idx) in orderStats.slice(0, 4)" :key="idx">
-        <OrderStatusCard :item="item" />
-      </b-col>
-    </b-row>
-
-    <!-- Order Status Cards - Second Row -->
-    <b-row class="g-2 mt-2">
-      <b-col md="6" xl="3" v-for="(item, idx) in orderStats.slice(4)" :key="idx">
+      <b-col md="6" xl="3" v-for="(item, idx) in orderStats" :key="idx">
         <OrderStatusCard :item="item" />
       </b-col>
     </b-row>
@@ -22,18 +15,18 @@
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
               <div class="app-search w-100">
                 <div class="position-relative">
-                  <input type="text" class="form-control" :placeholder="t('common.search') + '...'">
+                  <b-form-input :placeholder="t('common.search') + '...'" />
                   <span class="bx bx-search-alt"></span>
                 </div>
               </div>
             </div>
 
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-              <div class="d-flex gap-2 button-container">
-                <button class="btn btn-light">
+              <div class="d-flex gap-2 button-container" v-if="selectedOrders.length > 0">
+                <button class="btn btn-light action-btn print-btn">
                   <i class="bx bx-printer me-1"></i> {{ t('common.print') }}
                 </button>
-                <button class="btn btn-white archive-btn">
+                <button class="btn btn-light action-btn archive-btn">
                   <i class="bx bx-archive me-1"></i> {{ t('common.archive') }}
                 </button>
               </div>
@@ -79,6 +72,17 @@
             <b-table-simple responsive class="table-centered table-nowrap mb-0">
               <b-thead class="bg-light bg-opacity-50">
                 <b-tr>
+                  <b-th class="border-0 py-2 text-center" style="width: 40px;">
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="selectAllCheckbox"
+                        :checked="isAllSelected"
+                        @change="toggleSelectAll"
+                      >
+                    </div>
+                  </b-th>
                   <b-th class="border-0 py-2">{{ t('common.order') }}</b-th>
                   <b-th class="border-0 py-2">{{ t('common.customer') }}</b-th>
                   <b-th class="border-0 py-2">{{ t('common.channel') }}</b-th>
@@ -90,8 +94,8 @@
                   <b-th class="border-0 py-2">{{ t('common.dateCreated') }}</b-th>
                   <b-th class="border-0 py-2">{{ t('common.type') }}</b-th>
                   <b-th class="border-0 py-2">{{ t('common.paymentMethod') }}</b-th>
-                  <b-th class="border-0 py-2">{{ t('common.dateReceived') }}</b-th>
                   <b-th class="border-0 py-2">{{ t('common.note') }}</b-th>
+                  <b-th class="border-0 py-2">{{ t('common.dateReceived') }}</b-th>
                   <b-th class="border-0 py-2">{{ t('common.action') }}</b-th>
                 </b-tr>
               </b-thead>
@@ -99,8 +103,21 @@
                 <b-tr
                   v-for="(item, idx) in ordersList"
                   :key="idx"
-                  @click="navigateToOrder(item.id)"
+                  @click="rowClicked(item, $event)"
                   class="clickable-row">
+                  <!-- Checkbox -->
+                  <b-td class="text-center" @click.stop>
+                    <div class="form-check">
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        :id="`checkbox-${item.id}`"
+                        v-model="selectedOrders"
+                        :value="item.id"
+                      >
+                    </div>
+                  </b-td>
+
                   <!-- Order -->
                   <b-td>
                     <router-link :to="`/apps/orders/${item.id}`" class="fw-medium">#{{ item.id }}</router-link>
@@ -109,7 +126,6 @@
                   <!-- Customer -->
                   <b-td>
                     <div class="d-flex align-items-center">
-                      <img :src="item.customer.img" alt="" class="avatar-xs rounded-circle me-2">
                       <div>
                         <h5 class="fs-14 m-0 fw-normal">{{ item.customer.name }}</h5>
                       </div>
@@ -151,26 +167,22 @@
                   <!-- Payment Method -->
                   <b-td>{{ item.paymentMethod }}</b-td>
 
-                  <!-- Date Received -->
-                  <b-td>{{ item.deliveryDate }}</b-td>
-
                   <!-- Note -->
                   <b-td>
-                    <span v-if="idx % 3 === 0" class="text-muted">{{ t(getTranslationKeyForNote(getRandomNote())) }}</span>
+                    <a href="#" @click.stop.prevent="showNoteModal(idx)" class="note-icon" v-if="idx % 3 === 0">
+                      <i class="bx bx-note text-info"></i>
+                    </a>
                     <span v-else>-</span>
                   </b-td>
+
+                  <!-- Date Received -->
+                  <b-td>{{ item.deliveryDate }}</b-td>
 
                   <!-- Action -->
                   <b-td>
                     <div class="d-flex gap-1">
-                      <a href="#" class="action-icon" title="View" @click.stop="navigateToOrder(item.id)">
-                        <i class="bx bx-show"></i>
-                      </a>
                       <a href="#" class="action-icon edit-icon" title="Edit" @click.stop>
                         <i class="bx bx-edit"></i>
-                      </a>
-                      <a href="#" class="action-icon delete-icon" title="Delete" @click.stop>
-                        <i class="bx bx-trash"></i>
                       </a>
                     </div>
                   </b-td>
@@ -197,11 +209,21 @@
         </b-card>
       </b-col>
     </b-row>
+
+    <!-- Note Modal -->
+    <b-modal v-model="noteModalVisible" title="Order Note" hide-footer centered>
+      <div class="p-2">
+        <p>{{ currentNote }}</p>
+      </div>
+      <div class="text-end mt-3">
+        <button class="btn btn-sm btn-primary" @click="noteModalVisible = false">Close</button>
+      </div>
+    </b-modal>
   </VerticalLayout>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import VerticalLayout from "@/layouts/VerticalLayout.vue";
 import OrderStatusCard from '@/views/apps/orders/components/OrderStatusCard.vue';
@@ -240,6 +262,39 @@ const navigateToOrder = (orderId: string) => {
 // Pagination
 const currentPage = ref(1);
 const perPage = ref(10);
+
+// Selected orders for bulk actions
+const selectedOrders = ref<string[]>([]);
+const isAllSelected = computed(() => {
+  return selectedOrders.value.length === ordersList.length;
+});
+
+// Toggle select all orders
+const toggleSelectAll = () => {
+  if (isAllSelected.value) {
+    selectedOrders.value = [];
+  } else {
+    selectedOrders.value = ordersList.map(order => order.id);
+  }
+};
+
+// Handle row click (don't navigate if checkbox was clicked)
+const rowClicked = (item: any, event: Event) => {
+  // Only navigate if the click wasn't on a checkbox
+  if (!(event.target as HTMLElement).closest('.form-check')) {
+    navigateToOrder(item.id);
+  }
+};
+
+// Note modal
+const noteModalVisible = ref(false);
+const currentNote = ref('');
+
+// Show note modal
+const showNoteModal = (idx: number) => {
+  currentNote.value = t(getTranslationKeyForNote(getRandomNote()));
+  noteModalVisible.value = true;
+};
 
 const getStatusBadgeClass = (status: string) => {
   switch (status) {
@@ -336,14 +391,12 @@ const getTranslationKeyForNote = (note: string) => {
   width: 280px;
 }
 
-.app-search .form-control {
+.app-search :deep(.form-control) {
   border-radius: 0.25rem;
   height: 38px;
   padding-left: 40px;
   padding-right: 20px;
-  background-color: #fff;
   box-shadow: none;
-  border: 1px solid #e9ecef;
 }
 
 .app-search span {
@@ -493,20 +546,49 @@ h5.fw-semibold {
   color: var(--bs-primary);
 }
 
-/* Archive button styling */
+/* Action buttons styling */
+.action-btn {
+  border-color: var(--bs-border-color);
+}
+
+.print-btn {
+  color: var(--bs-body-color);
+}
+
+.print-btn i {
+  color: var(--bs-body-color);
+}
+
 .archive-btn {
-  background-color: #FFFFFF;
-  border-color: #e9ecef;
-  color: #3176FB;
+  color: var(--bs-primary);
 }
 
 .archive-btn i {
-  color: #3176FB;
+  color: var(--bs-primary);
 }
 
-.archive-btn:hover {
-  background-color: #f8f9fa;
-  color: #3176FB;
+.action-btn:hover {
+  background-color: var(--bs-light);
+}
+
+/* Dark mode specific styles for buttons and search input */
+:deep([data-bs-theme="dark"]) .btn-light {
+  --bs-btn-active-color: var(--bs-dark);
+  --bs-btn-active-bg: var(--bs-border-color);
+  --bs-btn-active-border-color: var(--bs-border-color);
+  background-color: var(--bs-tertiary-bg) !important;
+  border-color: var(--bs-border-color) !important;
+  color: var(--bs-body-color) !important;
+}
+
+:deep([data-bs-theme="dark"]) .app-search .form-control {
+  background-color: var(--bs-tertiary-bg) !important;
+  border-color: var(--bs-border-color) !important;
+  color: var(--bs-body-color) !important;
+}
+
+:deep([data-bs-theme="dark"]) .app-search span {
+  color: var(--bs-secondary-color) !important;
 }
 
 /* Clickable row styling */
@@ -523,6 +605,26 @@ h5.fw-semibold {
 .clickable-row .action-icon {
   position: relative;
   z-index: 2;
+}
+
+/* Note icon styling */
+.note-icon {
+  color: var(--bs-info);
+  font-size: 1.2rem;
+  display: inline-block;
+}
+
+.note-icon:hover {
+  color: var(--bs-primary);
+}
+
+/* Checkbox styling */
+.form-check {
+  margin: 0;
+}
+
+.form-check-input {
+  cursor: pointer;
 }
 
 /* RTL specific styles for tables */
