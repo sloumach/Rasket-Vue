@@ -76,8 +76,6 @@
                }
 
                &[aria-expanded="true"] {
-                    background-color: transparent;
-
                     &::after {
                          transform: rotate(-180deg);
                          color: $main-nav-item-hover-color;
@@ -128,7 +126,7 @@
                          &:focus {
                               font-weight: $font-weight-medium;
                               color: $main-nav-item-hover-color;
-                              background-color: transparent;
+                              background-color: $main-nav-item-hover-bg;
 
                               &::after {
                                    color: $main-nav-item-hover-color;
@@ -140,13 +138,6 @@
                               align-items: center;
                               justify-content: center;
                               font-size: $main-nav-item-icon-size;
-                         }
-
-                         .nav-dot {
-                              display: inline-block;
-                              margin-right: 3px; /* Reduced from 5px to 3px to move text even closer to dot */
-                              color: #EBEBEB;
-                              font-size: 15px; /* Slightly larger dot for better visibility */
                          }
 
                          .badge {
@@ -174,12 +165,8 @@
                               position: relative;
                               white-space: nowrap;
                               transition: all 0.3s ease-in-out;
-                              /* Exact same properties as nav-link */
                               color: $main-nav-item-color;
-                              font-size: $main-nav-item-font-size;
-                              font-weight: 400; /* Exact same as nav-link */
-                              font-family: $font-family-secondary;
-                              line-height: 1;
+                              font-size: calc($main-nav-item-font-size * 0.95);
                               padding: calc($main-nav-item-padding-y * 0.25) $main-nav-item-padding-x;
 
                               &.active {
@@ -195,7 +182,11 @@
                               &:hover,
                               &:focus {
                                    color: $main-nav-item-hover-color;
-                                   background-color: transparent;
+
+                                   &::before {
+                                        background-color: $main-nav-item-hover-color;
+                                        opacity: 1;
+                                   }
                               }
 
                               &:hover {
@@ -331,9 +322,6 @@ html[data-menu-size="condensed"] {
                                    .sub-nav-item {
                                         .sub-nav-link {
                                              color: $dropdown-color;
-                                             font-size: $main-nav-item-font-size;
-                                             font-weight: $font-weight-normal;
-                                             font-family: $font-family-secondary;
 
                                              &[aria-expanded="true"],
                                              &.active,
@@ -341,7 +329,6 @@ html[data-menu-size="condensed"] {
                                              &:focus,
                                              &:hover {
                                                   color: var(--#{$prefix}primary);
-                                                  background-color: transparent;
                                              }
                                         }
 
@@ -387,11 +374,6 @@ html[data-menu-size="condensed"] {
                     .nav-text,
                     .sub-navbar-nav {
                          margin-left: 20px;
-                    }
-
-                    /* Style for submenu text to align better with dot */
-                    .submenu-text {
-                         margin-left: 0;
                     }
                }
 
@@ -455,7 +437,7 @@ html[data-menu-size="condensed"] {
      &:hover,
      &:focus {
           color: $main-nav-item-hover-color;
-          background-color: transparent;
+          background-color: $main-nav-item-hover-bg;
      }
 }
 

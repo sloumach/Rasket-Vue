@@ -5,7 +5,7 @@ export const MENU_ITEMS: MenuItemType[] = [
         key: 'dashboard',
         label: 'Dashboard',
         icon: 'solar:home-2-broken',
-        route: { name: 'dashboards.index' },
+        url: '#',
     },
     {
         key: 'sales',
@@ -21,7 +21,7 @@ export const MENU_ITEMS: MenuItemType[] = [
             {
                 key: 'sales-reservations',
                 label: 'Reservations',
-                route: { name: 'dashboards.index' },
+                url: '#',
                 parentKey: 'sales',
             },
         ],
@@ -34,13 +34,13 @@ export const MENU_ITEMS: MenuItemType[] = [
             {
                 key: 'catalog-products',
                 label: 'Products',
-                route: { name: 'dashboards.index' },
+                url: '#',
                 parentKey: 'catalog',
             },
             {
                 key: 'catalog-categories',
                 label: 'Categories',
-                route: { name: 'dashboards.index' },
+                url: '#',
                 parentKey: 'catalog',
             },
             {
@@ -179,13 +179,13 @@ export const MENU_ITEMS: MenuItemType[] = [
         key: 'settings',
         label: 'Settings',
         icon: 'solar:settings-broken',
-        route: { name: 'dashboards.index' },
+        url: '#',
     },
     {
         key: 'preview-store',
         label: 'Preview Store',
         icon: 'solar:shop-broken',
-        route: { name: 'dashboards.index' },
+        url: '#',
     },
 ];
 

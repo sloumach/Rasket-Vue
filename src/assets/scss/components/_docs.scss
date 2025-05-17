@@ -16,7 +16,7 @@
             color: $text-muted;
             font-weight: $font-weight-medium;
             transition: all 0.1s ease-out;
-
+            font-family:' "Public Sans", sans-serif !important';
             &:hover {
                 color: $primary;
             }

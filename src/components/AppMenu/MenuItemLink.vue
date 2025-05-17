@@ -1,10 +1,21 @@
 <template>
-  <router-link :class="`${currentRouteName === item.route?.name && 'active'} ${className}`" :to="{ name: item.route?.name, params: item.route?.params }">
-    <!-- For main menu items, show icon if present -->
-    <span v-if="item.icon && !(className && className.includes('sub-nav-link'))" class="nav-icon">
+  <!-- Use a regular anchor tag for items with url property -->
+  <a v-if="item.url" :href="item.url" :class="`${className}`">
+    <span v-if="item.icon" class="nav-icon">
       <Icon :icon="item.icon" />
     </span>
-    <span class="nav-text" :class="{'submenu-text': className && className.includes('sub-nav-link')}">{{ item.label }}</span>
+    <span class="nav-text"> {{ item.label }} </span>
+    <b-badge :variant="null" v-if="item.badge" class="text-end" :class="`bg-${item.badge.variant}`">
+      {{ item.badge.text }}
+    </b-badge>
+  </a>
+
+  <!-- Use router-link for items with route property -->
+  <router-link v-else :class="`${currentRouteName === item.route?.name && 'active'} ${className}`" :to="{ name: item.route?.name, params: item.route?.params }">
+    <span v-if="item.icon" class="nav-icon">
+      <Icon :icon="item.icon" />
+    </span>
+    <span class="nav-text"> {{ item.label }} </span>
     <b-badge :variant="null" v-if="item.badge" class="text-end" :class="`bg-${item.badge.variant}`">
       {{ item.badge.text }}
     </b-badge>

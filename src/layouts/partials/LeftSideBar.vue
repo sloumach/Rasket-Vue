@@ -2,7 +2,17 @@
   <div class="main-nav">
     <LogoBox />
 
-   <div class="status-bar">
+    <!-- Menu Toggle Button (sm-hover) -->
+    <button type="button" class="button-sm-hover" aria-label="Show Full Sidebar" @click="toggleMenuSize">
+      <Icon icon="solar:hamburger-menu-broken" class="button-sm-hover-icon mt-1 me-1"
+        style="height: 25px; width: 25px" />
+    </button>
+
+    <simplebar class="scrollbar">
+      <AppMenu :menu-items="getMenuItems()" />
+    </simplebar>
+
+    <div class="status-bar">
       <!-- Full sidebar view -->
       <div class="status-bar-expanded">
         <div class="d-flex align-items-center justify-content-between px-3 py-2">
@@ -26,15 +36,6 @@
         </div>
       </div>
     </div>
-    <!-- Menu Toggle Button (sm-hover) -->
-    <button type="button" class="button-sm-hover" aria-label="Show Full Sidebar" @click="toggleMenuSize">
-      <Icon icon="solar:hamburger-menu-broken" class="button-sm-hover-icon mt-1 me-1"
-        style="height: 25px; width: 25px" />
-    </button>
-
-    <simplebar class="scrollbar">
-      <AppMenu :menu-items="getMenuItems()" />
-    </simplebar>
   </div>
 </template>
 
@@ -186,29 +187,12 @@ import logoLight from '@/assets/images/logo-light.png';
 }
 
 .scrollbar {
-  height: calc(100vh - 120px) !important;
+  height: calc(100vh - 170px) !important;
   overflow-y: auto;
 }
 
 
-:deep(.sub-navbar-nav .sub-nav-item) {
-  position: relative;
-  padding-left: 57px !important;
-  font-weight: normal !important;
-  font-family: 'Noto Sans', sans-serif !important;
-}
 
-:deep(.sub-navbar-nav .sub-nav-item::before) {
-  content: "";
-  position: absolute;
-  left: 45px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: #CECECE;
-}
 
 
 
@@ -234,33 +218,33 @@ import logoLight from '@/assets/images/logo-light.png';
 
 .current-time {
   font-weight: 400;
-  font-size: 15px; 
-  line-height: 1; 
+  font-size: 15px;
+  line-height: 1;
   color: #EBEBEB;
   white-space: nowrap;
   display: flex;
   align-items: center;
   margin-left:-8px;
-  font-family: var(--bs-font-sans-serif); 
+  font-family: var(--bs-font-sans-serif);
 }
 
 .ampm-indicator {
   margin-left: 12px;
-  font-weight: 400; 
-  font-size: 15px; 
+  font-weight: 400;
+  font-size: 15px;
   line-height: 1;
   opacity: 0.9;
   font-family: var(--bs-font-sans-serif);
 }
 
 .collapsed-time {
-  font-weight: 400 !important; 
-  font-size: 15px !important; 
+  font-weight: 400 !important;
+  font-size: 15px !important;
   line-height: 1 !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
-  max-width: 30px !important; 
+  max-width: 30px !important;
   text-align: center !important;
   margin: 0 auto !important;
   letter-spacing: -0.3px;
@@ -278,8 +262,8 @@ import logoLight from '@/assets/images/logo-light.png';
 .sound-icon {
   cursor: pointer;
   color: #EBEBEB;
-  font-size: 18px; 
-  line-height: 1; 
+  font-size: 18px;
+  line-height: 1;
 }
 
 
@@ -289,8 +273,5 @@ import logoLight from '@/assets/images/logo-light.png';
 }
 
 
-:deep(.sales-icon) {
-  width: 28px !important;
-  height: 28px !important;
-}
+
 </style>
