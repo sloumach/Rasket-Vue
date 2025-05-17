@@ -39,6 +39,7 @@ const isActive = computed(() => {
   // Check if any child route matches the current route
   if (props.item.children) {
     return props.item.children.some(child => {
+    //@ts-ignore
       if (child.route && child.route.name === currentRouteName) {
         return true;
       }

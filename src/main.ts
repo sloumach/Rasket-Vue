@@ -38,6 +38,7 @@ const pinia = createPinia()
 app.use(pinia)
 app.use(router)
 app.use(createBootstrap())
+//@ts-ignore
 app.use(VueApexCharts)
 
 import { useLanguageStore } from '@/stores/language'
