@@ -11,7 +11,7 @@
     <b-row class="mt-3">
       <b-col>
         <div class="mb-3">
-          <div class="row g-2">
+          <div class="row g-2 orders-filter-row">
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
               <div class="app-search w-100">
                 <div class="position-relative">
@@ -22,7 +22,7 @@
             </div>
 
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-              <div class="d-flex gap-2 button-container" v-if="selectedOrders.length > 0">
+              <div class="d-flex gap-2 button-container action-buttons" v-if="selectedOrders.length > 0">
                 <button class="btn btn-light action-btn print-btn">
                   <i class="bx bx-printer me-1"></i> {{ t('common.print') }}
                 </button>
@@ -53,17 +53,17 @@
 
         <b-card no-body>
           <!-- Table Header with Title and Time Period Selector -->
-          <div class="d-flex justify-content-between align-items-center table-header p-3 border-bottom">
+          <div class="d-flex justify-content-between align-items-center table-header p-3 border-bottom orders-header">
             <h5 class="mb-0 fw-semibold">{{ t('common.allOrders') }}</h5>
             <div class="dropdown">
               <button class="btn btn-sm btn-light dropdown-toggle" type="button" id="timeFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bx bx-calendar me-1"></i> {{ t('common.viewBy') }}
               </button>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="timeFilterDropdown">
-                <li><a class="dropdown-item" href="#"><i class="bx bx-calendar-day me-1"></i> {{ t('common.day') }}</a></li>
-                <li><a class="dropdown-item" href="#"><i class="bx bx-calendar-week me-1"></i> {{ t('common.week') }}</a></li>
-                <li><a class="dropdown-item" href="#"><i class="bx bx-calendar-month me-1"></i> {{ t('common.month') }}</a></li>
-                <li><a class="dropdown-item" href="#"><i class="bx bx-calendar-alt me-1"></i> {{ t('common.year') }}</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bx bx-calendar me-1"></i> {{ t('common.day') }}</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bx bx-calendar me-1"></i> {{ t('common.week') }}</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bx bx-calendar me-1"></i> {{ t('common.month') }}</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bx bx-calendar me-1"></i> {{ t('common.year') }}</a></li>
               </ul>
             </div>
           </div>
@@ -129,7 +129,7 @@
                   </b-td>
 
                   <!-- Channel -->
-                  <b-td>{{ t(`common.${getRandomChannel().toLowerCase()}`) }}</b-td>
+                  <b-td>{{ getRandomChannel()}}</b-td>
 
                   <!-- Total -->
                   <b-td>{{ currency }}{{ item.amount }}</b-td>
@@ -137,28 +137,28 @@
                   <!-- Payment Status -->
                   <b-td>
                     <b-badge :variant="null" :class="getPaymentStatusBadgeClass(idx)">
-                      {{ t(`common.${getRandomPaymentStatus(idx).toLowerCase()}`) }}
+                      {{ getRandomPaymentStatus(idx).toLowerCase() }}
                     </b-badge>
                   </b-td>
 
                   <!-- Status -->
                   <b-td>
                     <b-badge :variant="null" :class="getStatusBadgeClass(item.status)">
-                      {{ t(`common.${item.status}`) }}
+                      {{ item.status }}
                     </b-badge>
                   </b-td>
 
                   <!-- Branch -->
-                  <b-td>{{ t(`common.${getRandomBranch().toLowerCase()}`) }}</b-td>
+                  <b-td>{{ getRandomBranch().toLowerCase() }}</b-td>
 
                   <!-- Area -->
-                  <b-td>{{ t(`common.${getRandomArea().toLowerCase()}`) }}</b-td>
+                  <b-td>{{ getRandomArea().toLowerCase() }}</b-td>
 
                   <!-- Date Created -->
                   <b-td>{{ item.orderDate }}</b-td>
 
                   <!-- Type -->
-                  <b-td>{{ t(`common.${getRandomType().toLowerCase()}`) }}</b-td>
+                  <b-td>{{ getRandomType().toLowerCase() }}</b-td>
 
                   <!-- Payment Method -->
                   <b-td>{{ item.paymentMethod }}</b-td>
@@ -504,8 +504,30 @@ const getTranslationKeyForNote = (note: string) => {
 
 /* Table header styles */
 h5.fw-semibold {
-  color: #495057;
+  color: var(--bs-body-color);
   font-size: 1.05rem;
+}
+
+/* RTL specific styles for orders header */
+:deep([dir="rtl"]) .orders-header {
+  flex-direction: row-reverse;
+}
+
+/* RTL specific styles for orders filter row */
+:deep([dir="rtl"]) .orders-filter-row {
+  flex-direction: row-reverse;
+}
+
+:deep([dir="rtl"]) .justify-content-md-end {
+  justify-content: flex-start !important;
+}
+
+:deep([dir="rtl"]) .justify-content-sm-start {
+  justify-content: flex-end !important;
+}
+
+:deep([dir="rtl"]) .action-buttons {
+  flex-direction: row;
 }
 
 .btn-sm {

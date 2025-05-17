@@ -34,6 +34,13 @@ export const translations = {
       language: 'Language',
       english: 'English',
       arabic: 'Arabic',
+      welcome: 'Welcome',
+      message: 'Message',
+      pricing: 'Pricing',
+      help: 'Help',
+      lockScreen: 'Lock Screen',
+      clearAll: 'Clear All',
+      viewAllNotifications: 'View All Notifications',
 
       // Order page translations
       allOrders: 'All Orders',
@@ -158,6 +165,13 @@ export const translations = {
       language: 'اللغة',
       english: 'الإنجليزية',
       arabic: 'العربية',
+      welcome: 'مرحباً',
+      message: 'رسالة',
+      pricing: 'التسعير',
+      help: 'المساعدة',
+      lockScreen: 'قفل الشاشة',
+      clearAll: 'مسح الكل',
+      viewAllNotifications: 'عرض جميع الإشعارات',
 
       // Order page translations
       allOrders: 'جميع الطلبات',

@@ -31,6 +31,8 @@ import '@vueup/vue-quill/dist/vue-quill.bubble.css'
 import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
 import '@/assets/scss/app.scss'
 import '@/assets/scss/icons.scss'
+import '@/assets/css/rtl-fixes.css'
+import '@/assets/css/sidebar-menu-fix.css'
 
 const app = createApp(App)
 const pinia = createPinia()

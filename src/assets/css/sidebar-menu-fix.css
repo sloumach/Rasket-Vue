@@ -1,0 +1,77 @@
+/*
+ * This file ensures the sidebar menu items in RTL mode look exactly like the LTR mode
+ * with the only difference being the translated text
+ */
+
+/* Fix menu arrow display and position in RTL mode */
+[dir="rtl"] .main-nav .navbar-nav .nav-item .menu-arrow::after {
+  display: flex !important;
+  content: "\ea4a" !important;
+  font-family: boxicons !important;
+  position: absolute !important;
+  right: auto !important;
+  left: calc(var(--bs-main-nav-item-padding-x) * 1.5) !important;
+  margin-left: auto !important;
+  transition: transform 0.2s !important;
+  color: var(--bs-main-nav-item-color) !important;
+  font-size: calc(var(--bs-main-nav-item-font-size) * 1.25) !important;
+  opacity: 0.6 !important;
+  transform: rotate(180deg) !important;
+}
+
+/* Fix menu arrow open state in RTL mode */
+[dir="rtl"] .main-nav .navbar-nav .nav-item .menu-arrow.menu-open::after {
+  transform: rotate(0deg) !important;
+  color: var(--bs-main-nav-item-hover-color) !important;
+  opacity: 1 !important;
+}
+
+/* Reset submenu padding to match English version */
+[dir="rtl"] .main-nav .navbar-nav .sub-navbar-nav {
+  padding-right: 0 !important;
+  padding-left: var(--bs-main-nav-item-padding-x) !important;
+}
+
+/* Reset badge positioning to match English version */
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link .badge {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+/* Reset submenu item hover effects to match English version but without background */
+[dir="rtl"] .main-nav .navbar-nav .sub-navbar-nav .sub-nav-item .sub-nav-link:hover,
+[dir="rtl"] .main-nav .navbar-nav .sub-navbar-nav .sub-nav-item .sub-nav-link:focus {
+  transform: translateX(-5px) !important;
+  transition: all 0.3s ease-in-out !important;
+  color: var(--bs-main-nav-item-hover-color) !important;
+  background-color: transparent !important;
+}
+
+/* Reset submenu item hover before pseudo-element to match English version */
+[dir="rtl"] .main-nav .navbar-nav .sub-navbar-nav .sub-nav-item .sub-nav-link:hover::before,
+[dir="rtl"] .main-nav .navbar-nav .sub-navbar-nav .sub-nav-item .sub-nav-link:focus::before {
+  background-color: var(--bs-main-nav-item-hover-color) !important;
+  opacity: 1 !important;
+}
+
+/* Reset menu item hover effects to match English version */
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link:hover,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link:focus {
+  font-weight: var(--bs-font-weight-medium) !important;
+  color: var(--bs-main-nav-item-hover-color) !important;
+  background-color: var(--bs-main-nav-item-hover-bg) !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+/* Fix menu arrow hover state in RTL mode */
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link:hover .menu-arrow::after,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link:focus .menu-arrow::after {
+  color: var(--bs-main-nav-item-hover-color) !important;
+  opacity: 1 !important;
+}
+
+/* Reset submenu item before pseudo-element to match English version */
+[dir="rtl"] .main-nav .navbar-nav .sub-navbar-nav .sub-nav-item .sub-nav-link::before {
+  margin-left: 0 !important;
+  margin-right: 8px !important;
+}

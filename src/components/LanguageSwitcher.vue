@@ -38,6 +38,18 @@ const changeLanguage = (lang: string) => {
 
 <style scoped>
 .language-switcher {
-  margin-left: 10px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Adjust the icon size and padding */
+:deep(.dropdown-toggle) {
+  padding: 0 5px;
+}
+
+/* RTL support */
+:deep([dir="rtl"]) .language-switcher {
+  margin-right: 0;
+  margin-left: 0;
 }
 </style>

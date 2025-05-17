@@ -47,7 +47,7 @@ export const profileMenuItems: MenuItemType[] = [
     route: { name: 'pages.faqs' }
   },
   {
-    key: 'lock-screen',
+    key: 'lockScreen',
     label: 'Lock Screen',
     icon: 'bx-lock',
     route: { name: 'auth.lock-screen' }

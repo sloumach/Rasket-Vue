@@ -2,7 +2,7 @@
   <header class="topbar">
     <b-container fluid>
       <div class="navbar-header">
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-2 topbar-left-container">
           <!-- Menu Toggle Button -->
           <div class="topbar-item">
             <button type="button" class="button-toggle-menu topbar-button">
@@ -19,7 +19,7 @@
           </form>
         </div>
 
-        <div class="d-flex align-items-center gap-1">
+        <div class="d-flex align-items-center topbar-icons-container" style="gap: 4px; flex-direction: row !important;" :style="rtlStyle">
           <!-- Theme Color (Light/Dark) -->
           <div class="topbar-item">
             <button type="button" class="topbar-button" id="light-dark-mode" @click="toggleTheme">
@@ -53,7 +53,7 @@
                   </div>
                   <div class="col-auto">
                     <a href="javascript: void(0);" class="text-dark text-decoration-underline">
-                      <small>Clear All</small>
+                      <small>{{ t('common.clearAll') }}</small>
                     </a>
                   </div>
                 </b-row>
@@ -99,8 +99,8 @@
                 </a>
               </simplebar>
               <div class="text-center py-3">
-                <a href="javascript:void(0);" class="btn btn-primary btn-sm">View All Notification <i
-                    class="bx bx-right-arrow-alt ms-1"></i></a>
+                <a href="javascript:void(0);" class="btn btn-primary btn-sm">{{ t('common.viewAllNotifications') }} <i
+                    :class="languageStore.isRTL ? 'bx bx-left-arrow-alt me-1' : 'bx bx-right-arrow-alt ms-1'"></i></a>
               </div>
             </div>
           </DropDown>
@@ -126,12 +126,12 @@
               </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end">
-              <h6 class="dropdown-header">Welcome Gaston!</h6>
+              <h6 class="dropdown-header">{{ t('common.welcome') }} Gaston!</h6>
 
               <router-link class="dropdown-item" :to="{ name: item.route?.name }"
                 v-for="(item, idx) in profileMenuItems" :key="idx">
                 <i :class="`bx ${item.icon} text-muted fs-18 align-middle me-1`"></i><span class="align-middle">{{
-                  item.label }}</span>
+                  t(`common.${item.key}`) }}</span>
               </router-link>
 
               <div class="dropdown-divider my-1"></div>
@@ -148,11 +148,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import { Icon } from "@iconify/vue";
 import simplebar from 'simplebar-vue';
 
 import { useLayoutStore } from '@/stores/layout';
+import { useLanguageStore } from '@/stores/language';
 import { toggleDocumentAttribute } from "@/helpers";
 import { profileMenuItems, notifications } from "@/layouts/partials/data";
 import { useTranslation } from '@/locales/i18n';
@@ -162,6 +163,18 @@ import LanguageSwitcher from "@/components/LanguageSwitcher.vue";
 import avatar1 from "@/assets/images/users/avatar-1.jpg";
 
 const { t } = useTranslation();
+const languageStore = useLanguageStore();
+
+// Computed property for RTL style
+const rtlStyle = computed(() => {
+  try {
+    const isRtl = document.documentElement.getAttribute('dir') === 'rtl';
+    return isRtl ? 'flex-direction: row !important;' : '';
+  } catch (error) {
+    console.error('Error computing RTL style:', error);
+    return '';
+  }
+});
 
 const toggleFullScreen = () => {
   if (!document.fullscreenElement) {
@@ -216,3 +229,59 @@ onMounted(() => {
   useLayout.init();
 });
 </script>
+
+<style scoped>
+/* RTL support for top bar icons */
+:deep([dir="rtl"]) .topbar-icons-container {
+  flex-direction: row !important;
+}
+
+:deep([dir="rtl"]) #app > div > header > div > div > div.d-flex.align-items-center.gap-1.topbar-icons-container {
+  flex-direction: row !important;
+}
+
+:deep([dir="rtl"]) .topbar-left-container {
+  flex-direction: row-reverse;
+}
+
+:deep([dir="rtl"]) .dropdown-menu-end {
+  right: auto !important;
+  left: 0 !important;
+}
+
+:deep([dir="rtl"]) .me-auto {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
+:deep([dir="rtl"]) .search-widget-icon {
+  left: auto;
+  right: 10px;
+}
+
+:deep([dir="rtl"]) .app-search .form-control {
+  padding-left: 20px;
+  padding-right: 40px;
+}
+
+/* Adjust spacing between topbar items */
+.topbar-item {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+/* Adjust button padding */
+.topbar-button {
+  padding: 0 5px !important;
+}
+
+/* RTL support for topbar item spacing */
+:deep([dir="rtl"]) .topbar-item {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+</style>

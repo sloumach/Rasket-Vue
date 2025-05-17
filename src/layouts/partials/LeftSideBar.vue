@@ -3,8 +3,9 @@
     <LogoBox />
 
     <!-- Menu Toggle Button (sm-hover) -->
-    <button type="button" class="button-sm-hover" aria-label="Show Full Sidebar" @click="toggleMenuSize">
-      <Icon icon="solar:hamburger-menu-broken" class="button-sm-hover-icon mt-1 me-1"
+    <button type="button" class="button-sm-hover" :class="{'rtl-button': languageStore.isRTL}" aria-label="Show Full Sidebar" @click="toggleMenuSize">
+      <Icon icon="solar:hamburger-menu-broken" class="button-sm-hover-icon mt-1"
+        :class="languageStore.isRTL ? 'ms-1' : 'me-1'"
         style="height: 25px; width: 25px" />
     </button>
 
@@ -49,6 +50,7 @@ import { useLanguageStore } from '@/stores/language';
 import { onMounted, ref, onUnmounted, computed, watch } from 'vue';
 
 const useLayout = useLayoutStore();
+const languageStore = useLanguageStore();
 
 const { layout, setLeftSideBarSize } = useLayout;
 
@@ -211,11 +213,27 @@ import logoLight from '@/assets/images/logo-light.png';
   margin-right: 4px;
 }
 
+:deep([dir="rtl"]) .status-bar-collapsed .status-indicator {
+  margin-right: 0;
+  margin-left: 4px;
+}
+
 .time-container {
   display: flex;
   align-items: center;
 }
 
+
+.rtl .current-time{
+  display:flex;
+  gap:10px;
+  flex-direction:row-reverse !important;
+}
+
+.rtl .nav-text {
+  
+
+}
 .current-time {
   font-weight: 400;
   font-size: 15px;
@@ -228,6 +246,11 @@ import logoLight from '@/assets/images/logo-light.png';
   font-family: var(--bs-font-sans-serif);
 }
 
+:deep([dir="rtl"]) .current-time {
+  margin-left: 0;
+  margin-right: -8px;
+}
+
 .ampm-indicator {
   margin-left: 12px;
   font-weight: 400;
@@ -235,6 +258,17 @@ import logoLight from '@/assets/images/logo-light.png';
   line-height: 1;
   opacity: 0.9;
   font-family: var(--bs-font-sans-serif);
+}
+
+:deep([dir="rtl"]) .ampm-indicator {
+  margin-left: 0;
+  margin-right: 12px;
+}
+
+.rtl-button {
+  right: auto !important;
+  left: 10px !important;
+  z-index: 2 !important;
 }
 
 .collapsed-time {
