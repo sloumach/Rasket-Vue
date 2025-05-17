@@ -125,11 +125,7 @@
 
                   <!-- Customer -->
                   <b-td>
-                    <div class="d-flex align-items-center">
-                      <div>
-                        <h5 class="fs-14 m-0 fw-normal">{{ item.customer.name }}</h5>
-                      </div>
-                    </div>
+                       {{ item.customer.name }}
                   </b-td>
 
                   <!-- Channel -->

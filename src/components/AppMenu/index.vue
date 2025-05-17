@@ -11,6 +11,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, provide } from 'vue';
 import type { MenuItemType } from '@/types/menu';
 import MenuItemWithChildren from '@/components/AppMenu/MenuItemWithChildren.vue';
 import MenuItem from '@/components/AppMenu/MenuItem.vue';
@@ -20,4 +21,17 @@ type AppMenuProps = {
 };
 
 defineProps<AppMenuProps>();
+
+// Create a reactive reference to track the active menu
+const activeMenu = ref('');
+
+// Function to set the active menu
+const setActiveMenu = (key: string) => {
+  console.log('Setting active menu to:', key, 'Previous:', activeMenu.value);
+  activeMenu.value = key;
+};
+
+// Provide these values to child components
+provide('activeMenu', activeMenu);
+provide('setActiveMenu', setActiveMenu);
 </script>

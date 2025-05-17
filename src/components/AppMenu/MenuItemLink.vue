@@ -1,6 +1,6 @@
 <template>
   <!-- Use a regular anchor tag for items with url property -->
-  <a v-if="item.url" :href="item.url" :class="`${className}`">
+  <a v-if="item.url" :href="item.url" :class="`${isActive ? 'active' : ''} ${className}`">
     <span v-if="item.icon" class="nav-icon">
       <Icon :icon="item.icon" />
     </span>
@@ -11,7 +11,7 @@
   </a>
 
   <!-- Use router-link for items with route property -->
-  <router-link v-else :class="`${currentRouteName === item.route?.name && 'active'} ${className}`" :to="{ name: item.route?.name, params: item.route?.params }">
+  <router-link v-else :class="`${isActive ? 'active' : ''} ${className}`" :to="{ name: item.route?.name, params: item.route?.params }">
     <span v-if="item.icon" class="nav-icon">
       <Icon :icon="item.icon" />
     </span>
@@ -23,11 +23,21 @@
 </template>
 
 <script setup lang="ts">
-import type { SubMenus } from '@/types/menu'
-import { Icon } from '@iconify/vue'
-import router from '@/router'
+import { computed } from 'vue';
+import type { SubMenus } from '@/types/menu';
+import { Icon } from '@iconify/vue';
+import router from '@/router';
+import { menuItemActive } from '@/helpers/menu';
 
-defineProps<SubMenus>()
+const props = defineProps<SubMenus>();
 
-const currentRouteName = router.currentRoute.value.name
+const currentRouteName = router.currentRoute.value.name;
+
+// Check if this menu item should be active based on current route
+const isActive = computed(() => {
+  if (props.item.route?.name) {
+    return currentRouteName === props.item.route.name;
+  }
+  return false;
+});
 </script>

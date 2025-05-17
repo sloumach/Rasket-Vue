@@ -62,6 +62,9 @@
           }
 
           .menu-arrow {
+               position: relative;
+               cursor: pointer;
+
                &::after {
                     right: calc($main-nav-item-padding-x * 1.5);
                     display: flex;
@@ -74,17 +77,14 @@
                     font-size: calc($main-nav-item-font-size * 1.25);
                     opacity: 0.6;
                }
+          }
 
-               &[aria-expanded="true"] {
-                    &::after {
-                         transform: rotate(-180deg);
-                         color: $main-nav-item-hover-color;
-                    }
-
-                    &::before {
-                         opacity: 1;
-                         color: $main-nav-item-hover-color;
-                    }
+          // Add this class when the menu is open
+          .menu-open {
+               &::after {
+                    transform: rotate(-180deg);
+                    color: $main-nav-item-hover-color;
+                    opacity: 1;
                }
           }
 
@@ -119,9 +119,6 @@
                          padding: $main-nav-item-padding-y $main-nav-item-padding-x;
                          margin: $main-nav-item-margin-y 0;
 
-                         &.show,
-                         &.active,
-                         &:active,
                          &:hover,
                          &:focus {
                               font-weight: $font-weight-medium;
@@ -130,6 +127,18 @@
 
                               &::after {
                                    color: $main-nav-item-hover-color;
+                              }
+                         }
+
+                         &.show,
+                         &.active,
+                         &:active {
+                              font-weight: $font-weight-medium;
+                              color: $main-nav-item-color;
+                              background-color: transparent;
+
+                              &::after {
+                                   color: $main-nav-item-color;
                               }
                          }
 
@@ -171,21 +180,33 @@
 
                               &.active {
                                    font-weight: $font-weight-medium;
+                                   color: $main-nav-item-color;
+                                   background-color: transparent;
                               }
 
                               .badge {
                                    margin-left: auto;
                               }
 
-                              &.active,
-                              &:active,
                               &:hover,
                               &:focus {
                                    color: $main-nav-item-hover-color;
+                                   background-color: $main-nav-item-hover-bg;
 
                                    &::before {
                                         background-color: $main-nav-item-hover-color;
                                         opacity: 1;
+                                   }
+                              }
+
+                              &.active,
+                              &:active {
+                                   color: $main-nav-item-color;
+                                   background-color: transparent;
+
+                                   &::before {
+                                        background-color: transparent;
+                                        opacity: 0;
                                    }
                               }
 
