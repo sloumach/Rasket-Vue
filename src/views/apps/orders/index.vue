@@ -136,16 +136,20 @@
 
                   <!-- Payment Status -->
                   <b-td>
-                    <b-badge :variant="null" :class="getPaymentStatusBadgeClass(idx)">
-                      {{ getRandomPaymentStatus(idx).toLowerCase() }}
-                    </b-badge>
+                    <div class="d-flex justify-content-center">
+                      <b-badge :variant="null" :class="getPaymentStatusBadgeClass(idx)">
+                        {{ getRandomPaymentStatus(idx).toLowerCase() }}
+                      </b-badge>
+                    </div>
                   </b-td>
 
                   <!-- Status -->
                   <b-td>
-                    <b-badge :variant="null" :class="getStatusBadgeClass(item.status)">
-                      {{ item.status }}
-                    </b-badge>
+                    <div class="d-flex justify-content-center">
+                      <b-badge :variant="null" :class="getStatusBadgeClass(item.status)">
+                        {{ item.status }}
+                      </b-badge>
+                    </div>
                   </b-td>
 
                   <!-- Branch -->
@@ -165,10 +169,12 @@
 
                   <!-- Note -->
                   <b-td>
-                    <a href="#" @click.stop.prevent="showNoteModal(idx)" class="note-icon" v-if="idx % 3 === 0">
-                      <i class="bx bx-note text-info"></i>
-                    </a>
-                    <span v-else>-</span>
+                    <div class="d-flex justify-content-center">
+                      <a href="#" @click.stop.prevent="showNoteModal(idx)" class="note-icon" v-if="idx % 3 === 0">
+                        <i class="bx bx-note text-info"></i>
+                      </a>
+                      <span v-else>-</span>
+                    </div>
                   </b-td>
 
                   <!-- Date Received -->
@@ -176,7 +182,7 @@
 
                   <!-- Action -->
                   <b-td>
-                    <div class="d-flex gap-1">
+                    <div class="d-flex justify-content-center">
                       <a href="#" class="action-icon edit-icon" title="Edit" @click.stop>
                         <i class="bx bx-edit"></i>
                       </a>
@@ -630,6 +636,7 @@ h5.fw-semibold {
   color: var(--bs-info);
   font-size: 1.2rem;
   display: inline-block;
+  text-align: center;
 }
 
 .note-icon:hover {
@@ -654,6 +661,28 @@ h5.fw-semibold {
 :deep([dir="rtl"]) .avatar-xs {
   margin-left: 0.5rem;
   margin-right: 0;
+}
+
+/* Ensure columns with centered content work in both LTR and RTL modes */
+.d-flex.justify-content-center {
+  justify-content: center !important;
+}
+
+:deep([dir="rtl"]) .d-flex.justify-content-center {
+  justify-content: center !important;
+}
+
+/* Ensure badges are properly centered */
+.d-flex.justify-content-center .badge {
+  text-align: center !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+:deep([dir="rtl"]) .d-flex.justify-content-center .badge {
+  text-align: center !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* RTL specific styles for pagination */
