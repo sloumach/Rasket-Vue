@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router';
 import { allRoutes } from "./routes";
-import { useAuthStore } from '@/stores/auth'
+import { useAuthStore } from '@/stores/auth';
+import { useMenuStore } from '@/stores/menu';
 
 // Use hash mode for production builds to avoid 404 issues with direct URL access
 const history = import.meta.env.PROD
@@ -13,11 +14,26 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    // Set navigation flag to prevent menu flickering
+    const menuStore = useMenuStore();
+    menuStore.isNavigating = true;
+
+    // Update document title
     const title = to.meta.title;
     if (title) {
         document.title = title.toString();
     }
+
     next();
+});
+
+// After navigation is complete, reset the navigation flag
+router.afterEach(() => {
+    // Use setTimeout to ensure all components have updated
+    setTimeout(() => {
+        const menuStore = useMenuStore();
+        menuStore.isNavigating = false;
+    }, 500);
 });
 
 router.beforeEach((routeTo, routeFrom, next) => {

@@ -11,27 +11,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide } from 'vue';
+import { onMounted } from 'vue';
 import type { MenuItemType } from '@/types/menu';
 import MenuItemWithChildren from '@/components/AppMenu/MenuItemWithChildren.vue';
 import MenuItem from '@/components/AppMenu/MenuItem.vue';
+import { useMenuStore } from '@/stores/menu';
 
 type AppMenuProps = {
   menuItems: Array<MenuItemType>;
 };
 
-defineProps<AppMenuProps>();
+const props = defineProps<AppMenuProps>();
 
-// Create a reactive reference to track the active menu
-const activeMenu = ref('');
+// Use the menu store
+const menuStore = useMenuStore();
 
-// Function to set the active menu
-const setActiveMenu = (key: string) => {
-  console.log('Setting active menu to:', key, 'Previous:', activeMenu.value);
-  activeMenu.value = key;
-};
+// Initialize the menu store
+onMounted(() => {
+  // Initialize from localStorage
+  menuStore.initFromStorage();
 
-// Provide these values to child components
-provide('activeMenu', activeMenu);
-provide('setActiveMenu', setActiveMenu);
+  // Update active menu based on current route
+  menuStore.updateActiveMenuFromRoute(props.menuItems);
+});
 </script>
