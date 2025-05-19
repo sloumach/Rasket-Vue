@@ -1,0 +1,129 @@
+/*
+ * This file adds hover effects to the print and archive buttons in the orders page
+ */
+
+/* Base styles for action buttons */
+.action-btn {
+  transition: all 0.3s ease-in-out !important;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Improved base styles for archive button in light mode */
+.archive-btn {
+  background-color: white !important;
+  color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+.archive-btn i {
+  color: var(--bs-primary) !important;
+}
+
+/* Print button hover effect */
+.print-btn:hover {
+  background-color: var(--bs-primary) !important;
+  color: white !important;
+  border-color: var(--bs-primary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(var(--bs-primary-rgb), 0.3);
+}
+
+.print-btn:hover i {
+  color: white !important;
+}
+
+/* Archive button hover effect - depends on print button */
+.action-buttons:hover .archive-btn {
+  background-color: rgba(var(--bs-primary-rgb), 0.05) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+/* Archive button hover effect when directly hovered */
+.archive-btn:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.15) !important;
+  color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 6px rgba(var(--bs-primary-rgb), 0.2);
+}
+
+.archive-btn:hover i {
+  color: var(--bs-primary) !important;
+}
+
+/* When print button is hovered, affect archive button */
+.print-btn:hover + .archive-btn {
+  transform: translateX(5px);
+  background-color: rgba(var(--bs-primary-rgb), 0.05) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+/* Dark mode specific styles */
+[data-bs-theme="dark"] .archive-btn {
+  background-color: var(--bs-tertiary-bg) !important;
+  color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+[data-bs-theme="dark"] .archive-btn i {
+  color: var(--bs-primary) !important;
+}
+
+[data-bs-theme="dark"] .print-btn:hover {
+  background-color: var(--bs-primary) !important;
+  color: white !important;
+  border-color: var(--bs-primary) !important;
+}
+
+[data-bs-theme="dark"] .print-btn:hover i {
+  color: white !important;
+}
+
+[data-bs-theme="dark"] .archive-btn:hover {
+  background-color: rgba(var(--bs-primary-rgb), 0.25) !important;
+  color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+[data-bs-theme="dark"] .archive-btn:hover i {
+  color: var(--bs-primary) !important;
+}
+
+[data-bs-theme="dark"] .action-buttons:hover .archive-btn {
+  background-color: rgba(var(--bs-primary-rgb), 0.15) !important;
+}
+
+[data-bs-theme="dark"] .print-btn:hover + .archive-btn {
+  background-color: rgba(var(--bs-primary-rgb), 0.15) !important;
+}
+
+/* RTL specific styles */
+[dir="rtl"] .print-btn:hover + .archive-btn {
+  transform: translateX(-5px);
+}
+
+/* Active state for buttons */
+.print-btn:active,
+.archive-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+/* Focus state for buttons */
+.print-btn:focus,
+.archive-btn:focus {
+  box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+/* Fix for button container in orders page */
+.button-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Fix for button container in RTL mode */
+[dir="rtl"] .button-container {
+  flex-direction: row-reverse;
+}

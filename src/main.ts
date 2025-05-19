@@ -33,6 +33,8 @@ import '@/assets/scss/app.scss'
 import '@/assets/scss/icons.scss'
 import '@/assets/css/rtl-fixes.css'
 import '@/assets/css/sidebar-menu-fix.css'
+import '@/assets/css/sidebar-fixes.css'
+import '@/assets/css/order-buttons.css'
 
 const app = createApp(App)
 const pinia = createPinia()

@@ -1,0 +1,60 @@
+/*
+ * This file fixes issues with the sidebar in RTL mode
+ */
+
+/* Hide menu arrows in RTL mode when sidebar is collapsed */
+[dir="rtl"][data-menu-size="sm-hover"] .main-nav:not(:hover) .menu-arrow::after,
+[dir="rtl"][data-menu-size="condensed"] .main-nav .menu-arrow::after,
+[dir="rtl"][data-menu-size="sm-hover-active"] .main-nav .menu-arrow::after {
+  display: none !important;
+}
+
+/* Fix font size issue on hover in RTL mode - keep it consistent */
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link .nav-text,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link:hover .nav-text,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link:focus .nav-text,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link.active .nav-text,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link.active:hover .nav-text,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link.active:focus .nav-text,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link.menu-open .nav-text,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link.menu-open:hover .nav-text,
+[dir="rtl"] .main-nav .navbar-nav .nav-item .nav-link.menu-open:focus .nav-text {
+  font-size: 15px !important;
+}
+
+/* Hide AM/PM indicator when sidebar is collapsed/closed */
+[data-menu-size="sm-hover"] .main-nav:not(:hover) .ampm-indicator,
+[data-menu-size="condensed"] .main-nav .ampm-indicator,
+[dir="rtl"][data-menu-size="sm-hover"] .main-nav:not(:hover) .ampm-indicator,
+[dir="rtl"][data-menu-size="condensed"] .main-nav .ampm-indicator {
+  display: none !important;
+}
+
+/* Hide sound icon when sidebar is collapsed/closed */
+[data-menu-size="sm-hover"] .main-nav:not(:hover) .status-indicator,
+[data-menu-size="sm-hover"] .main-nav:not(:hover) .sound-container,
+[data-menu-size="condensed"] .main-nav .status-indicator,
+[data-menu-size="condensed"] .main-nav .sound-container,
+[dir="rtl"][data-menu-size="sm-hover"] .main-nav:not(:hover) .status-indicator,
+[dir="rtl"][data-menu-size="sm-hover"] .main-nav:not(:hover) .sound-container,
+[dir="rtl"][data-menu-size="condensed"] .main-nav .status-indicator,
+[dir="rtl"][data-menu-size="condensed"] .main-nav .sound-container {
+  display: none !important;
+}
+
+/* Hide sound icon and container in collapsed view */
+.status-bar-collapsed .status-indicator,
+.status-bar-collapsed .sound-container {
+  display: none !important;
+}
+
+/* Style for AM/PM indicator wrapper */
+.ampm-indicator-wrapper {
+  display: inline-block;
+}
+
+/* Ensure time is properly displayed in collapsed mode */
+.status-bar-collapsed .current-time {
+  font-size: 13px !important;
+  letter-spacing: -0.5px !important;
+}

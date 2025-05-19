@@ -22,7 +22,7 @@
             </div>
 
             <div class="col-12 col-sm-6 col-md-4 col-lg-4">
-              <div class="d-flex gap-2 button-container action-buttons" v-if="selectedOrders.length > 0">
+              <div class="button-container action-buttons" v-if="selectedOrders.length > 0">
                 <button class="btn btn-light action-btn print-btn">
                   <i class="bx bx-printer me-1"></i> {{ t('common.print') }}
                 </button>

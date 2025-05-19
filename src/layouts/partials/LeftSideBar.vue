@@ -33,7 +33,7 @@
       <div class="status-bar-collapsed">
         <div class="d-flex align-items-center justify-content-center py-2">
           <span class="status-indicator me-1"></span>
-          <span class="current-time collapsed-time">{{ collapsedTime }}</span>
+          <span class="current-time collapsed-time">{{ timeOnly }}</span>
         </div>
       </div>
     </div>
@@ -231,7 +231,7 @@ import logoLight from '@/assets/images/logo-light.png';
 }
 
 .rtl .nav-text {
-  
+
 
 }
 .current-time {
