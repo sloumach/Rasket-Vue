@@ -1,22 +1,20 @@
 <template>
   <div :class="customClass ?? 'logo-box'">
     <router-link to="/" class="logo-dark">
-      <img :src="logoSmall" :height="smLogoHeight" :class="smLogoClass ?? 'logo-sm'" alt="logo sm">
-      <img :src="logoDark" :height="logoHeight" :class="[logoClass ?? 'logo-lg', isRTL ? 'rtl-logo' : '']" alt="logo dark">
+      <img :src="logoSvg" :height="smLogoHeight" :class="smLogoClass ?? 'logo-sm'" alt="Milagro logo">
+      <span :class="[logoClass ?? 'logo-lg', isRTL ? 'rtl-logo' : '']" class="logo-text">Milagro</span>
     </router-link>
 
     <router-link to="/" class="logo-light">
-      <img :src="logoSmall" :height="smLogoHeight" :class="smLogoClass ?? 'logo-sm'" alt="logo sm">
-      <img :src="logoLight" :height="logoHeight" :class="[logoClass ?? 'logo-lg', isRTL ? 'rtl-logo' : '']" alt="logo light">
+      <img :src="logoSvg" :height="smLogoHeight" :class="smLogoClass ?? 'logo-sm'" alt="Milagro logo">
+      <span :class="[logoClass ?? 'logo-lg', isRTL ? 'rtl-logo' : '']" class="logo-text">Milagro</span>
     </router-link>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import logoSmall from "@/assets/images/logo-sm.png";
-import logoDark from "@/assets/images/logo-dark.png";
-import logoLight from "@/assets/images/logo-light.png";
+import logoSvg from "@/assets/images/logo.svg";
 import { useLanguageStore } from '@/stores/language';
 
 type PropsType = {
@@ -37,5 +35,23 @@ const isRTL = computed(() => languageStore.isRTL);
 .rtl-logo {
   margin-left: 0 !important;
   margin-right: 6px !important;
+}
+
+.logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  margin-left: 6px;
+  vertical-align: middle;
+  font-family: 'Public Sans', sans-serif;
+  color: var(--bs-headings-color);
+}
+
+.logo-light .logo-text {
+  color: #fff;
+}
+
+[dir="rtl"] .logo-text {
+  margin-left: 0;
+  margin-right: 6px;
 }
 </style>

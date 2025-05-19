@@ -1,6 +1,6 @@
 //@ts-nocheck
 const setTitle = (title: string) => {
-    return title ? `${title} | Rasket Vue - Responsive Admin Dashboard Template` : 'Rasket Vue - Responsive Admin Dashboard Template';
+    return title ? `${title} | Milagro Vue - Responsive Admin Dashboard Template` : 'Milagro Vue - Responsive Admin Dashboard Template';
 };
 
 const authRoutes = [

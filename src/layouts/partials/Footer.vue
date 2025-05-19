@@ -3,7 +3,7 @@
     <b-container fluid>
       <b-row>
         <b-col cols="12" class="text-center">
-          {{ currentYear }} &copy; Rasket. Crafted by
+          {{ currentYear }} &copy; Milagro. Crafted by
           <Icon icon="solar:hearts-bold-duotone" class="fs-18 align-middle text-danger" />
           <router-link to="" class="fw-bold footer-text" target="_blank">Techzaa</router-link>
         </b-col>

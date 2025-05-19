@@ -183,7 +183,7 @@ export const scheduleData: ScheduleType[] = [
         variant: 'primary'
     },
     {
-        task: 'Design Review - Rasket Admin',
+        task: 'Design Review - Milagro Admin',
         time: { startAt: '10:00', endAt: '10:30' },
         variant: 'success'
     },

@@ -56,8 +56,8 @@ export const pricingPlans: PlanType[] = [
 
 export const helpCenter: HelpType[] = [
   {
-    title: "Getting Started with Rasket",
-    description: "Welcome to Rasket Dive into basic for a swift on boarding experience",
+    title: "Getting Started with Milagro",
+    description: "Welcome to Milagro Dive into basic for a swift on boarding experience",
     icon: "solar:round-arrow-right-bold",
     author: "Aston Martin",
     videoCount: 19,
@@ -206,7 +206,7 @@ export const timelineData: TimelineType[] = [
       },
       {
         side: 'left',
-        title: 'We released new version of our theme Rasket.',
+        title: 'We released new version of our theme Milagro.',
         description: '3 new photo Uploaded on facebook fan page'
       }
     ]
